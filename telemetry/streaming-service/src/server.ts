@@ -11,14 +11,26 @@ const WS_PORT = 8080;
 const tcpServer = net.createServer();
 const websocketServer = new WebSocketServer({ port: WS_PORT });
 
+let critical_temp_msg:Array<VehicleData> = []
+
 tcpServer.on("connection", (socket) => {
   console.log("TCP client connected");
 
   socket.on("data", (msg) => {
     console.log(`Received: ${msg.toString()}`);
 
-    const jsonData: VehicleData = JSON.parse(msg.toString());
+    let msg_string = msg.toString()
 
+    if(msg_string.endsWith("}}")){
+      //removing last character where the additional "}" was added  
+      msg_string = msg_string.slice(0,-1)
+    }
+
+    const jsonData: VehicleData = JSON.parse(msg_string);
+    if(jsonData.battery_temperature>80 || jsonData.battery_temperature<20){
+      critical_temp_msg.push(jsonData)
+    }
+  
     // Send JSON over WS to frontend clients
     websocketServer.clients.forEach(function each(client) {
       if (client.readyState === WebSocket.OPEN) {
