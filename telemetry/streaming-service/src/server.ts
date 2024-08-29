@@ -22,7 +22,8 @@ const tcpServer = net.createServer();
  */
 const websocketServer = new WebSocketServer({ port: WS_PORT });
 
-//let criticalTempMsgs:VehicleData[] = []
+let criticalTempMsgs:VehicleData[] = []
+let allTempMsgs:VehicleData[] = []
 
 
 tcpServer.on("connection", (socket) => {
@@ -38,9 +39,23 @@ tcpServer.on("connection", (socket) => {
       //removing last character where the additional "}" was added  
       msg_string = msg_string.slice(0,-1)
     }
-
-
     const jsonData: VehicleData = JSON.parse(msg_string);
+    allTempMsgs.push(jsonData);
+    if(allTempMsgs.length == 10){
+      //clear every 5 seconds as response received every 0.5 seconds
+      allTempMsgs = [];
+      criticalTempMsgs = [];
+    }
+
+    if(jsonData.battery_temperature<20 || jsonData.battery_temperature>80){
+      criticalTempMsgs.push(jsonData)
+    }
+    if( criticalTempMsgs.length == 3){
+      console.log("TOO MANY OUT OF BOUNDS TEMPERATURES")
+      criticalTempMsgs = []
+    }
+    
+
 
     
     ///////////
