@@ -16,5 +16,5 @@ return an error message. Instead of creating a global variable to store critical
 json file), may involve configuring nodemon as nodemon will keep restarting due to file changes within folders in src. Have not been able to figure out why nodemon keeps restarting, however operations of
 clear getdata and set data are working properly as the json file is dynamically updated, however this update causes nodemon to think there has been a change made and it must restart the server as I do not 
 think its appropriate to meddle with config files i shall discard thisapproach ( also made the mistake of doing this work on the wrong branch , telemetryq1).
-
+I shall default to the global array variable method mentioned earlier.
 ## Cloud
