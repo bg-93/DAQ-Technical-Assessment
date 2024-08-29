@@ -14,6 +14,7 @@ this stringified text to send as a response to the webserver, we will delete the
 A response the battery_emulator is sent every 0.5 seconds, therefore for every 10 responses (5 seconds worth of informatoin) we may check if any 3 of them exceed the boundaries and accordingly
 return an error message. Instead of creating a global variable to store critical entries, a better practise may be to create a datastore linked to a database( in this case a dynamically changing
 json file), may involve configuring nodemon as nodemon will keep restarting due to file changes within folders in src. Have not been able to figure out why nodemon keeps restarting, however operations of
-clear getdata and set data are working properly as the json file is dynamically updated, however this update causes nodemon to think there has been a change made and it must restart the server.
+clear getdata and set data are working properly as the json file is dynamically updated, however this update causes nodemon to think there has been a change made and it must restart the server as I do not 
+think its appropriate to meddle with config files i shall discard thisapproach ( also made the mistake of doing this work on the wrong branch , telemetryq1).
 
 ## Cloud

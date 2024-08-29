@@ -1,6 +1,5 @@
 import net from "net";
 import { WebSocket, WebSocketServer } from "ws";
-import { getData, setData, clear } from "./data_access";
 
 export interface VehicleData {
   battery_temperature: number;
@@ -40,27 +39,10 @@ tcpServer.on("connection", (socket) => {
       msg_string = msg_string.slice(0,-1)
     }
 
-    let tempMsgs = getData()
+
     const jsonData: VehicleData = JSON.parse(msg_string);
 
-    if(jsonData.battery_temperature>TEMP_MAX || jsonData.battery_temperature<TEMP_MIN){
-      tempMsgs.critical_temperatures.push(jsonData)
-      tempMsgs.all_temperatures.push(jsonData)
-      setData(tempMsgs)
-    }else {
-      tempMsgs.all_temperatures.push(jsonData)
-      setData(tempMsgs)
-    }
-
-    //since we get responses every 0.5 seconds, every 10 entries
-    //5 seconds have passed
-    if(tempMsgs.all_temperatures.length == 10){
-      clear();
-    }
-
-    if( tempMsgs.critical_temperatures.length == 3 ){//
-      console.log("TEMPERATURE NOT IN BOUNDS")
-    }
+    
     ///////////
     // Send JSON over WS to frontend clients
     websocketServer.clients.forEach(function each(client) {
@@ -71,12 +53,12 @@ tcpServer.on("connection", (socket) => {
   });
 
   socket.on("end", () => {
-    clear();
+
     console.log("Closing connection with the TCP client");
   });
 
   socket.on("error", (err) => {
-    clear();
+
     console.log("TCP client error: ", err);
   });
 });
