@@ -55,25 +55,21 @@ tcpServer.on("connection", (socket) => {
       criticalTempMsgs = []
     }
     
-
-
-    
     ///////////
     // Send JSON over WS to frontend clients
     websocketServer.clients.forEach(function each(client) {
       if (client.readyState === WebSocket.OPEN) {
-        client.send(msg.toString());
+        // discards the extra }
+        client.send(msg_string);
       }
     });
   });
 
   socket.on("end", () => {
-
     console.log("Closing connection with the TCP client");
   });
 
   socket.on("error", (err) => {
-
     console.log("TCP client error: ", err);
   });
 });
