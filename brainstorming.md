@@ -20,6 +20,8 @@ I shall default to the global array variable method mentioned earlier. it keeps 
 critical and total number array, if temperature is critical it will be pushed into the critical array if that number is out of bounds. Furthermore, if 3 temperatures caught then it resets the critical
 array after logging the message.
 
-3. 
+3. For increaseing aesthetics, the purpose of this website is to display real time temperature data, therefore simplistic designs can be suited for this purpose,
+the main focal point of the website is to be on the temperature portion of the screen hence elements involving logo and title can be positioned near the top.
+
 
 ## Cloud

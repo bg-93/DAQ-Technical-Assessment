@@ -28,5 +28,7 @@
 
 .value-title {
   font-size: calc(25px + 2vmin);
+  color: aquamarine;
+  font-family: sans-serif;
 }
 

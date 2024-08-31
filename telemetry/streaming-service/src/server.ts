@@ -47,7 +47,7 @@ tcpServer.on("connection", (socket) => {
       criticalTempMsgs = [];
     }
 
-    if(jsonData.battery_temperature<20 || jsonData.battery_temperature>80){
+    if(jsonData.battery_temperature<TEMP_MIN || jsonData.battery_temperature>TEMP_MAX){
       criticalTempMsgs.push(jsonData)
     }
     if( criticalTempMsgs.length == 3){
