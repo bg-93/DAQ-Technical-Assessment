@@ -51,7 +51,7 @@ function App() {
           className="redback-logo"
           alt="Redback Racing Logo"
         />
-        <p className="value-title" >Live Battery Temperature</p>
+        <b><p className="value-title" >Live Battery Temperature</p></b>
         <LiveValue temp={temperature} />
       </header>
     </div>
